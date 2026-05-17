@@ -28,7 +28,10 @@ app = FastAPI(title="API Contract Guardian")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://api-contract-guardian-pi.vercel.app",
+        "http://localhost:3000",
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
