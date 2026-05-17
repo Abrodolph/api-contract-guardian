@@ -7,11 +7,12 @@ import type { Verdict } from '@/lib/types'
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-  let initial: Verdict[] = []
+  let initialVerdicts: Verdict[] = []
   try {
-    initial = await fetchVerdicts()
+    initialVerdicts = await fetchVerdicts()
+    if (!Array.isArray(initialVerdicts)) initialVerdicts = []
   } catch {
-    // Backend offline; client-side polling will hydrate the list
+    initialVerdicts = []
   }
 
   return (
@@ -33,7 +34,7 @@ export default async function Home() {
 
       <main className="max-w-3xl mx-auto px-6 py-8">
         <ContractHealthChart />
-        <VerdictList initial={initial} />
+        <VerdictList initial={initialVerdicts} />
       </main>
     </div>
   )

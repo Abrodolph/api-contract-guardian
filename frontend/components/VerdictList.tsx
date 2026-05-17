@@ -13,6 +13,8 @@ export function VerdictList({ initial }: Props) {
   const [status, setStatus] = useState<'ok' | 'error' | 'stale'>('ok')
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date())
 
+  const safeVerdicts = Array.isArray(verdicts) ? verdicts : []
+
   const poll = useCallback(async () => {
     try {
       const res = await fetch('https://api-contract-guardian-1.onrender.com/verdicts')
@@ -31,9 +33,9 @@ export function VerdictList({ initial }: Props) {
     return () => clearInterval(id)
   }, [poll])
 
-  const breaking = verdicts.filter(v => v.verdict === 'BREAKING').length
-  const review   = verdicts.filter(v => v.verdict === 'REVIEW').length
-  const safe     = verdicts.filter(v => v.verdict === 'SAFE').length
+  const breaking = safeVerdicts.filter(v => v.verdict === 'BREAKING').length
+  const review   = safeVerdicts.filter(v => v.verdict === 'REVIEW').length
+  const safe     = safeVerdicts.filter(v => v.verdict === 'SAFE').length
 
   return (
     <div>
@@ -62,7 +64,7 @@ export function VerdictList({ initial }: Props) {
       </div>
 
       {/* List */}
-      {verdicts.length === 0 ? (
+      {safeVerdicts.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
           <div className="w-12 h-12 rounded-full bg-[#161b22] border border-[#30363d] flex items-center justify-center mb-4">
             <svg className="w-5 h-5 text-[#8b949e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +77,7 @@ export function VerdictList({ initial }: Props) {
         </div>
       ) : (
         <div className="flex flex-col gap-2">
-          {verdicts.map(v => (
+          {safeVerdicts.map(v => (
             <VerdictCard key={v.id} verdict={v} />
           ))}
         </div>
