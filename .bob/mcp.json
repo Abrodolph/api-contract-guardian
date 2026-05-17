@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "contract-guardian": {
+      "command": "python",
+      "args": ["c:/Personal/Code/api-contract-guardian/mcp-server/server.py"]
+    }
+  }
+}
