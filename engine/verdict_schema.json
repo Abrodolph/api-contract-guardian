@@ -1,0 +1,17 @@
+{
+  "verdict": "BREAKING | SAFE | REVIEW",
+  "change_summary": "string",
+  "affected_field": "string | null",
+  "blast_radius": {
+    "consumers": [
+      {
+        "name": "string",
+        "call_sites": [
+          { "file": "string", "line": 0 }
+        ]
+      }
+    ],
+    "total_call_sites": 0
+  },
+  "reasoning": "string"
+}
