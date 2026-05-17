@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+frontend/node_modules/
+frontend/.next/
+frontend/.claude/
+frontend/tsconfig.tsbuildinfo
+bob_sessions/
+reference/
+backend/.env
+frontend/.env.local

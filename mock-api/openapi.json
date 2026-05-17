@@ -40,18 +40,7 @@
             "in": "query",
             "required": false,
             "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 }
-          },
-          {
-    "name": "sort_by",
-    "in": "query",
-    "required": false,
-    "schema": {
-      "type": "string",
-      "enum": ["created_at", "name", "email"],
-      "default": "created_at"
-    },
-    "description": "Field used to sort users"
-  }
+          }
         ],
         "responses": {
           "200": {
@@ -211,9 +200,10 @@
       "User": {
         "type": "object",
         "title": "User",
-        "required": ["id",  "name", "plan", "status", "created_at"],
+        "required": ["id", "email", "name", "plan", "status", "created_at"],
         "properties": {
           "id": { "type": "string", "example": "usr_1" },
+          "email": { "type": "string", "format": "email", "example": "alice@example.com" },
           "name": { "type": "string", "example": "Alice Chen" },
           "plan": {
             "type": "string",
