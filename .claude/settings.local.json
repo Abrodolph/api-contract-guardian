@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(Copy-Item *)"
+      "PowerShell(Copy-Item *)",
+      "PowerShell(Get-ChildItem \"C:\\\\Personal\\\\Code\\\\api-contract-guardian\\\\mock-consumers\" -Recurse | Where-Object { -not $_.PSIsContainer })"
     ]
   }
 }

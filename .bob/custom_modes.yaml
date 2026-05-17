@@ -71,7 +71,21 @@ customModes:
         "reasoning": "string"
       }
 
-      - blast_radius stays empty for now (will be populated by MCP tools later)
+      - When verdict is BREAKING, call find_call_sites(field_name) and populate blast_radius like this:
+        * Group the results by consumer name
+        * Each entry in consumers must be an object: {"name": "consumer-name", "call_sites": [{"file": "path", "line": 0}]}
+        * total_call_sites = total count of all call_site entries across all consumers
+        * Never simplify consumers to a flat list of strings
+        * The correct output shape is:
+        {
+          "blast_radius": {
+            "consumers": [
+              {"name": "billing-service", "call_sites": [{"file": "mock-consumers/billing-service/client.py", "line": 20}]},
+              {"name": "mobile-bff", "call_sites": [{"file": "mock-consumers/mobile-bff/client.py", "line": 21}, {"file": "mock-consumers/mobile-bff/client.py", "line": 34}]}
+            ],
+            "total_call_sites": 3
+          }
+        }
 
       - If multiple changes exist, use the most severe verdict (BREAKING > REVIEW > SAFE)
 

@@ -211,10 +211,9 @@
       "User": {
         "type": "object",
         "title": "User",
-        "required": ["id", "email", "name", "plan", "status", "created_at"],
+        "required": ["id",  "name", "plan", "status", "created_at"],
         "properties": {
           "id": { "type": "string", "example": "usr_1" },
-          "email": { "type": "string", "format": "email", "example": "alice@example.com" },
           "name": { "type": "string", "example": "Alice Chen" },
           "plan": {
             "type": "string",
