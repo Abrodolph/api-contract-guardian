@@ -1,6 +1,6 @@
 import type { Verdict } from './types'
 
-const BACKEND = 'http://localhost:8000'
+const BACKEND = 'https://api-contract-guardian-1.onrender.com'
 
 export async function fetchVerdicts(): Promise<Verdict[]> {
   const res = await fetch(`${BACKEND}/verdicts`, { cache: 'no-store' })

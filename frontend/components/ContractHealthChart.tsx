@@ -69,7 +69,7 @@ export function ContractHealthChart() {
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    fetch('/api/contract-health')
+    fetch('https://api-contract-guardian-1.onrender.com/contract-health')
       .then(r => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`)
         return r.json() as Promise<HealthPoint[]>

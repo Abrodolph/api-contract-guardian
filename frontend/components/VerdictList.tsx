@@ -15,7 +15,7 @@ export function VerdictList({ initial }: Props) {
 
   const poll = useCallback(async () => {
     try {
-      const res = await fetch('/api/verdicts')
+      const res = await fetch('https://api-contract-guardian-1.onrender.com/verdicts')
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const data: Verdict[] = await res.json()
       setVerdicts(data)
