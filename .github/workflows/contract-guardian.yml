@@ -1,0 +1,45 @@
+name: Contract Guardian
+
+on:
+  push:
+    paths:
+      - "mock-api/openapi.json"
+  pull_request:
+    paths:
+      - "mock-api/openapi.json"
+
+jobs:
+  classify:
+    name: Classify API contract change
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Bob Shell
+        # Replace the package name below with the actual IBM Bob Shell npm package.
+        # Run `npm list -g --depth=0` on your machine to find it, then update here.
+        run: npm install -g @ibm/bob-shell
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Run Contract Guardian
+        id: guardian
+        env:
+          BOBSHELL_API_KEY: ${{ secrets.BOBSHELL_API_KEY }}
+          GUARDIAN_BACKEND_URL: ${{ secrets.GUARDIAN_BACKEND_URL }}
+          CI: "true"
+        run: python engine/hooks/guardian.py
+
+      - name: Block on BREAKING verdict
+        if: failure() && steps.guardian.outcome == 'failure'
+        run: |
+          echo "::error::Contract Guardian detected a BREAKING API change."
+          echo "::error::Review the classifier output above, fix the breaking change, and re-push."
+          exit 1
