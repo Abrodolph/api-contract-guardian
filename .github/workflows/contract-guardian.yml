@@ -25,7 +25,7 @@ jobs:
       - name: Install Bob Shell
         # Replace the package name below with the actual IBM Bob Shell npm package.
         # Run `npm list -g --depth=0` on your machine to find it, then update here.
-        run: npm install -g @ibm/bob-shell
+        run: npm install -g @ibm/bob-shell@1.0.3
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
